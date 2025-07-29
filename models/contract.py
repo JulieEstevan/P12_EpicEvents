@@ -1,11 +1,12 @@
-from sqlalchemy import Column, Integer, Float, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, Float, Boolean, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, validates
+from datetime import datetime, timezone
 
-from .base import Base, TimestampMixin
+from .base import Base
 from utils.validators import validate_positive_amount
 
 
-class Contract(Base, TimestampMixin):
+class Contract(Base):
     """Contract model representing a contract in the system."""
 
     __tablename__ = "contracts"
@@ -13,7 +14,7 @@ class Contract(Base, TimestampMixin):
     contract_id = Column(Integer, primary_key=True, autoincrement=True)
     total_amount = Column(Float, nullable=False)
     remaining_amount = Column(Float, nullable=False)
-    date_created = TimestampMixin.created_at
+    date_created = Column(DateTime, default=datetime.now(timezone.utc))
     is_signed = Column(Boolean, default=False, nullable=False)
 
     # Foreign keys

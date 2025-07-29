@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship, validates
 
-from .base import Base, TimestampMixin
+from .base import Base
 from utils.validators import validate_string_length, validate_positive_integer
 
 
-class Event(Base, TimestampMixin):
+class Event(Base):
     """Event model representing an event in the system."""
 
     __tablename__ = "events"
@@ -16,7 +16,7 @@ class Event(Base, TimestampMixin):
     event_end_date = Column(DateTime, nullable=False)
     location = Column(String(200), nullable=False)
     attendees_count = Column(Integer, nullable=False)
-    notes = Column(String(500), nullable=True)
+    notes = Column(String(1000))
 
     # Foreign keys
     client_id = Column(Integer, ForeignKey("clients.client_id"), nullable=False)

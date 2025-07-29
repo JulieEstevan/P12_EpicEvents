@@ -9,9 +9,6 @@ load_dotenv()
 class Settings:
     """Application settings loaded from environment variables."""
 
-    # Database
-    DATABASE_URL: str = os.getenv("DATABASE_URL")
-
     # Security
     SECRET_KEY: str = os.getenv("SECRET_KEY")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(

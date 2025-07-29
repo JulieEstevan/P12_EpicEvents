@@ -1,6 +1,6 @@
 from enum import Enum
-from sqlachemy import Column, Integer, String, Enum as SQLAlchemyEnum
-from sqlachemy.orm import relationship, validates
+from sqlalchemy import Column, Integer, String, Enum as SQLAlchemyEnum
+from sqlalchemy.orm import relationship, validates
 from argon2 import PasswordHasher
 import argon2.exceptions
 

@@ -1,11 +1,12 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.orm import relationship, validates
+from datetime import datetime, timezone
 
-from .base import Base, TimestampMixin
+from .base import Base
 from utils.validators import validate_email, validate_string_length, validate_phone_number
 
 
-class Client(Base, TimestampMixin):
+class Client(Base):
     """Client model representing a client in the system."""
 
     __tablename__ = "clients"
@@ -13,10 +14,10 @@ class Client(Base, TimestampMixin):
     client_id = Column(Integer, primary_key=True, autoincrement=True)
     full_name = Column(String(100), nullable=False)
     email = Column(String(120), unique=True, nullable=False)
-    phone = Column(String(20), unique=True, nullable=True)
-    company_name = Column(String(100), nullable=True)
-    first_contact = TimestampMixin.created_at
-    last_contact = TimestampMixin.updated_at
+    phone = Column(String(20), unique=True, nullable=False)
+    company_name = Column(String(100), nullable=False)
+    first_contact = Column(DateTime, default=datetime.now(timezone.utc))
+    last_contact = Column(DateTime, default=datetime.now(timezone.utc))
 
     # Foreign keys
     sales_contact_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
