@@ -27,7 +27,7 @@ class User(Base):
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)
     email = Column(String(120), unique=True, nullable=False)
-    phone = Column(String(20), unique=True, nullable=True)
+    phone = Column(String(20), unique=True, nullable=False)
     hashed_password = Column(String(128), nullable=False)
     role = Column(SQLAlchemyEnum(UserRole), nullable=False)
 
@@ -66,6 +66,6 @@ class User(Base):
     # Representation method
     def __repr__(self):
         return (
-            f"<Employee {self.employee_id}: {self.first_name} "
-            f"{self.last_name} ({self.department.value})>"
+            f"<Employee {self.user_id}: {self.first_name} "
+            f"{self.last_name} ({self.role.value})>"
         )

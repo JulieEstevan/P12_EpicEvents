@@ -20,7 +20,7 @@ class Client(Base):
     last_contact = Column(DateTime, default=datetime.now(timezone.utc))
 
     # Foreign keys
-    sales_contact_id = Column(Integer, ForeignKey("users.user_id"), nullable=False)
+    sales_contact_id = Column(Integer, ForeignKey("users.user_id"), nullable=True)
 
     # Relations
     sales_contact = relationship("User", back_populates="clients")
