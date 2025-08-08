@@ -1,25 +1,22 @@
 import jwt
 from jwt import ExpiredSignatureError, InvalidTokenError
-from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
 from config import SECRET_KEY, ALGORITHM, TOKEN_FILE, ACCESS_TOKEN_EXPIRE_MINUTES
 
 
-def save_token(token: str) -> None:
-    """Save the JWT token to a file."""
-    with open(TOKEN_FILE, 'w') as token_file:
-        token_file.write(token)
-
 def create_token(data: dict) -> None:
     """Create a JWT token with the given data."""
+    if TOKEN_FILE.exists():
+        TOKEN_FILE.unlink()
     token = jwt.encode({
         "email": data.email,
         "password": data.hashed_password,
         "role": data.role,
         "exp": datetime.now(timezone.utc)+timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         }, SECRET_KEY, algorithm=ALGORITHM)
-    save_token(token)
+    with open(TOKEN_FILE, 'w') as token_file:
+        token_file.write(token)
 
 def load_token() -> str:
     """Load the JWT token from a file."""
@@ -48,8 +45,3 @@ def clear_token() -> None:
         TOKEN_FILE.unlink()
     else:
         raise Exception("No token file found to clear.")
-
-def get_current_user() -> dict:
-    """Get the current user from the token."""
-    token = load_token()
-    return decode_token(token)

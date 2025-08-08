@@ -7,8 +7,7 @@ from rich.prompt import Prompt
 from rich.panel import Panel
 from rich import box
 from sqlalchemy.exc import IntegrityError
-from getpass import getpass
-import sentry_sdk
+from getpass_asterisk.getpass_asterisk import getpass_asterisk as getpass
 
 from commands.general import prompt_required_input
 from models.user import User, UserRole
