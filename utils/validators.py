@@ -28,12 +28,12 @@ def validate_phone_number(number, field_name="phone", max_length=20):
 
 
 def validate_positive_amount(value, field_name, number=0):
-    if value < number:
+    if int(value) < number:
         raise ValueError(f"{field_name} amount must be a positive")
     return value
 
 
 def validate_positive_integer(value, field_name, number=0):
-    if value < number:
+    if int(value) < number:
         raise ValueError(f"{field_name} value must be a positive")
     return value

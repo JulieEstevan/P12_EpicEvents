@@ -17,7 +17,7 @@ class Client(Base):
     phone = Column(String(20), unique=True, nullable=False)
     company_name = Column(String(100), nullable=False)
     first_contact = Column(DateTime, default=datetime.now(timezone.utc))
-    last_contact = Column(DateTime, default=datetime.now(timezone.utc))
+    last_contact = Column(DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     # Foreign keys
     sales_contact_id = Column(Integer, ForeignKey("users.user_id"), nullable=True)
